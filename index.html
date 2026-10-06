@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfólio de Ideias 2027 — Diretoria de Orçamento e Finanças</title>
+<style>
+:root{--bg:#f4f6fa;--card:#fff;--ink:#263238;--mut:#5f6b7a;--navy:#1f3a5f;--line:#d5dce6;--soft:#f2f5f9;--ok:#2e7d5b;--warn:#b7791f;--bad:#b83a3a;--bar:#1f3a5f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11161d;--card:#1a212b;--ink:#e6ebf2;--mut:#9aa7b8;--navy:#8fb4e8;--line:#2d3745;--soft:#222b37;--bar:#6e9fdf}}
+:root[data-theme="dark"]{--bg:#11161d;--card:#1a212b;--ink:#e6ebf2;--mut:#9aa7b8;--navy:#8fb4e8;--line:#2d3745;--soft:#222b37;--bar:#6e9fdf}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Calibri,"Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding:20px 16px 48px}
+header{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-end;margin-bottom:16px}
+h1{margin:0;font-size:26px;color:var(--navy)} .sub{color:var(--mut);margin:2px 0 0}
+nav{display:flex;gap:6px;margin-bottom:16px}
+nav button,.btn{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:8px;cursor:pointer}
+nav button.on,.btn.pri{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] nav button.on,:root[data-theme="dark"] .btn.pri{color:#0d1117}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) nav button.on,:root:not([data-theme="light"]) .btn.pri{color:#0d1117}}
+.btn.danger{color:var(--bad)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.kpi b{display:block;font-size:30px;color:var(--navy)} .kpi span{color:var(--mut);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+h2{font-size:16px;margin:0 0 12px;color:var(--navy)}
+.row{display:grid;grid-template-columns:120px 1fr 28px;gap:8px;align-items:center;margin:7px 0;font-size:14px}
+.track{background:var(--soft);border-radius:6px;height:14px;overflow:hidden}.fill{background:var(--bar);height:100%;border-radius:6px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%}
+.tools input,.tools select{width:auto;flex:1;min-width:130px}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:860px}
+th{background:var(--navy);color:#fff;text-align:left;padding:10px;font-size:13px}
+:root[data-theme="dark"] th{color:#0d1117}@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) th{color:#0d1117}}
+td{padding:10px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr{cursor:pointer}tbody tr:nth-child(even){background:var(--soft)}tbody tr:hover{outline:2px solid var(--bar);outline-offset:-2px}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;background:var(--soft);border:1px solid var(--line)}
+.Alta{color:var(--bad)}.Média{color:var(--warn)}.Baixa{color:var(--ok)}
+.empty{padding:28px;text-align:center;color:var(--mut)}
+dialog{border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);width:min(720px,94vw);padding:20px;max-height:92vh}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:10px}.f .w{grid-column:1/-1}
+@media(max-width:560px){.f{grid-template-columns:1fr}}
+label{font-size:13px;color:var(--mut);display:block;margin-bottom:3px}textarea{min-height:64px;resize:vertical}
+.act{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}.note{color:var(--mut);font-size:13px;margin-top:10px}
+.hero{background:linear-gradient(135deg,#1f3a5f 0%,#2b5189 100%);color:#fff;position:relative;overflow:hidden}
+.hero:before{content:"2027";position:absolute;right:-10px;top:-34px;font-size:190px;font-weight:700;letter-spacing:-6px;color:rgba(255,255,255,.07);pointer-events:none;line-height:1}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero{background:linear-gradient(135deg,#142640 0%,#1d3a63 100%)}}
+:root[data-theme="dark"] .hero{background:linear-gradient(135deg,#142640 0%,#1d3a63 100%)}
+.hero-in{max-width:1200px;margin:0 auto;padding:26px 16px 0;position:relative}
+.top{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-end}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c9d6ea;margin:0 0 6px}
+.hero h1{color:#fff;font-size:34px;line-height:1.1;letter-spacing:-.01em}
+.hero .sub{color:#d6e0ef;margin:6px 0 0;font-size:15px}
+.hb{font:inherit;font-size:14px;padding:9px 16px;border-radius:999px;cursor:pointer;border:1px solid rgba(255,255,255,.55);background:transparent;color:#fff}
+.hb:hover{background:rgba(255,255,255,.12)}
+.hb.solid{background:#fff;color:#1f3a5f;border-color:#fff;font-weight:600}
+.hb.solid:hover{background:#e8eef8}
+.tabs{display:flex;gap:4px;margin-top:22px}
+.tabs button{font:inherit;font-size:15px;background:transparent;border:0;color:#c9d6ea;padding:10px 18px;cursor:pointer;border-bottom:3px solid transparent}
+.tabs button:hover{color:#fff}
+.tabs button.on{color:#fff;font-weight:600;border-bottom-color:#fff}
+.wrap{padding-top:22px}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-in">
+ <div class="top">
+  <div><p class="eyebrow">Diretoria de Orçamento e Finanças</p><h1>Portfólio de Ideias 2027</h1><p class="sub">Melhorias, sugestões, projetos e soluções em um só lugar.</p></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="hb" id="csv">Baixar relatório (CSV)</button><button class="hb solid" id="new">+ Nova ideia</button></div>
+ </div>
+ <div class="tabs"><button id="t1" class="on">Dashboard</button><button id="t2">Banco de Ideias</button></div>
+</div></div>
+<div class="wrap">
+<section id="v1">
+ <div class="kpis" id="kpis"></div>
+ <div class="grid" id="charts"></div>
+ <div class="card" style="margin-top:12px"><h2>Ideias mais recentes</h2><div id="recent"></div></div>
+</section>
+
+<section id="v2" hidden>
+ <div class="tools">
+  <input id="q" placeholder="Buscar ideia…">
+  <select id="fa"></select><select id="fp"></select><select id="fs"></select>
+ </div>
+ <div class="scroll"><table><thead><tr><th>Nº</th><th>Ideia</th><th>Área</th><th>Objetivo / Problema</th><th>Prioridade</th><th>Status</th><th>Observações</th></tr></thead><tbody id="tb"></tbody></table></div>
+ <p class="note" id="mode"></p>
+</section>
+</div>
+
+<dialog id="dlg"><form method="dialog" id="frm" onsubmit="return false">
+ <h2 id="dt">Ficha da Ideia</h2>
+ <div class="f">
+  <div class="w"><label>Nome da ideia</label><input id="nome"></div>
+  <div><label>Área</label><select id="area"></select></div>
+  <div><label>Responsável</label><input id="resp"></div>
+  <div class="w"><label>O que é?</label><textarea id="oque"></textarea></div>
+  <div class="w"><label>Qual problema resolve?</label><textarea id="prob"></textarea></div>
+  <div class="w"><label>Como pode ser feita?</label><textarea id="como"></textarea></div>
+  <div class="w"><label>Resultado esperado</label><textarea id="res"></textarea></div>
+  <div><label>Prazo</label><input id="prazo" type="date"></div>
+  <div><label>Prioridade</label><select id="prio"></select></div>
+  <div><label>Status</label><select id="stat"></select></div>
+  <div class="w"><label>Observações</label><textarea id="obs"></textarea></div>
+ </div>
+ <div class="act"><button class="btn danger" id="del" type="button">Excluir</button><button class="btn" id="cancel" type="button">Cancelar</button><button class="btn pri" id="save" type="button">Salvar</button></div>
+</form></dialog>
+
+<script>
+const AREAS=["Orçamento","Finanças","Processos","Sistemas/Tecnologia","Controle","Organização","Capacitação","Outras"];
+const PRIO=["Alta","Média","Baixa"];
+const STAT=["Nova","Em análise","Aprovada","Em andamento","Concluída","Arquivada"];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const opts=(a,first)=>(first?`<option value="">${first}</option>`:"")+a.map(x=>`<option>${x}</option>`).join("");
+$("fa").innerHTML=opts(AREAS,"Todas as áreas");$("fp").innerHTML=opts(PRIO,"Todas as prioridades");$("fs").innerHTML=opts(STAT,"Todos os status");
+$("area").innerHTML=opts(AREAS);$("prio").innerHTML=opts(PRIO);$("stat").innerHTML=opts(STAT);
+
+let ideas=[], db=null, editing=null;
+const LS="portfolio-ideias-2027";
+function lsLoad(){try{ideas=JSON.parse(localStorage.getItem(LS)||"[]")}catch(e){ideas=[]}}
+function lsSave(){try{localStorage.setItem(LS,JSON.stringify(ideas))}catch(e){}}
+
+async function persist(it){
+  if(db){try{await db.doc("ideas/"+it.id).set(it);return}catch(e){}}
+  const i=ideas.findIndex(x=>x.id===it.id); if(i>=0)ideas[i]=it; else ideas.push(it); lsSave(); render();
+}
+async function remove(id){
+  if(db){try{await db.doc("ideas/"+id).delete();return}catch(e){}}
+  ideas=ideas.filter(x=>x.id!==id); lsSave(); render();
+}
+
+function sorted(){return [...ideas].sort((a,b)=>(a.num||0)-(b.num||0))}
+function countBy(key,list){return list.map(v=>[v,ideas.filter(i=>i[key]===v).length])}
+function bars(title,data){
+  const mx=Math.max(1,...data.map(d=>d[1]));
+  return `<div class="card"><h2>${title}</h2>${data.map(([n,c])=>`<div class="row"><span>${esc(n)}</span><div class="track"><div class="fill" style="width:${c/mx*100}%"></div></div><b>${c}</b></div>`).join("")}</div>`;
+}
+function renderDash(){
+  const t=ideas.length, andam=ideas.filter(i=>i.stat==="Em andamento").length, conc=ideas.filter(i=>i.stat==="Concluída").length;
+  const alta=ideas.filter(i=>i.prio==="Alta"&&!["Concluída","Arquivada"].includes(i.stat)).length;
+  const k=[[t,"Ideias registradas"],[andam,"Em andamento"],[conc,"Concluídas"],[alta,"Alta prioridade em aberto"]];
+  $("kpis").innerHTML=k.map(([n,l])=>`<div class="card kpi"><b>${n}</b><span>${l}</span></div>`).join("");
+  $("charts").innerHTML=bars("Por status",countBy("stat",STAT))+bars("Por área",countBy("area",AREAS))+bars("Por prioridade",countBy("prio",PRIO));
+  const r=sorted().slice(-5).reverse();
+  $("recent").innerHTML=r.length?r.map(i=>`<div style="padding:6px 0;border-top:1px solid var(--line)"><b>${esc(i.nome)}</b> <span class="tag">${esc(i.area)}</span> <span class="tag">${esc(i.stat)}</span></div>`).join(""):`<div class="empty">Nenhuma ideia ainda. Clique em “+ Nova ideia” para começar.</div>`;
+}
+function renderTable(){
+  const q=$("q").value.toLowerCase(),a=$("fa").value,p=$("fp").value,s=$("fs").value;
+  const list=sorted().filter(i=>(!a||i.area===a)&&(!p||i.prio===p)&&(!s||i.stat===s)&&(!q||(i.nome+" "+i.oque+" "+i.prob).toLowerCase().includes(q)));
+  $("tb").innerHTML=list.length?list.map(i=>`<tr data-id="${esc(i.id)}"><td>${String(i.num||"").padStart(2,"0")}</td><td><b>${esc(i.nome)}</b></td><td>${esc(i.area)}</td><td>${esc(i.prob||i.oque)}</td><td class="${esc(i.prio)}"><b>${esc(i.prio)}</b></td><td><span class="tag">${esc(i.stat)}</span></td><td>${esc(i.obs)}</td></tr>`).join(""):`<tr><td colspan="7" class="empty">Nenhuma ideia encontrada.</td></tr>`;
+}
+function render(){renderDash();renderTable()}
+
+function openFicha(it){
+  editing=it; const n=it||{};
+  $("dt").textContent=it?"Ficha da Ideia nº "+String(n.num).padStart(2,"0"):"Nova ideia";
+  $("nome").value=n.nome||"";$("area").value=n.area||AREAS[0];$("resp").value=n.resp||"";$("oque").value=n.oque||"";
+  $("prob").value=n.prob||"";$("como").value=n.como||"";$("res").value=n.res||"";$("prazo").value=n.prazo||"";
+  $("prio").value=n.prio||"Média";$("stat").value=n.stat||"Nova";$("obs").value=n.obs||"";
+  $("del").style.display=it?"":"none"; $("dlg").showModal();
+}
+$("save").onclick=async()=>{
+  if(!$("nome").value.trim()){$("nome").focus();return}
+  const base=editing||{id:"i"+Date.now(),num:Math.max(0,...ideas.map(i=>i.num||0))+1};
+  const it={...base,nome:$("nome").value.trim(),area:$("area").value,resp:$("resp").value,oque:$("oque").value,prob:$("prob").value,como:$("como").value,res:$("res").value,prazo:$("prazo").value,prio:$("prio").value,stat:$("stat").value,obs:$("obs").value};
+  $("dlg").close(); await persist(it);
+};
+$("cancel").onclick=()=>$("dlg").close();
+$("del").onclick=async()=>{if(confirm("Excluir esta ideia?")){$("dlg").close();await remove(editing.id)}};
+$("new").onclick=()=>openFicha(null);
+$("tb").onclick=e=>{const tr=e.target.closest("tr[data-id]");if(tr)openFicha(ideas.find(i=>i.id===tr.dataset.id))};
+["q","fa","fp","fs"].forEach(id=>$(id).oninput=renderTable);
+function tab(n){$("v1").hidden=n!==1;$("v2").hidden=n!==2;$("t1").classList.toggle("on",n===1);$("t2").classList.toggle("on",n===2)}
+$("t1").onclick=()=>tab(1);$("t2").onclick=()=>tab(2);
+
+$("csv").onclick=async()=>{
+  const H=["Nº","Ideia","Área","O que é","Problema","Como","Resultado esperado","Responsável","Prazo","Prioridade","Status","Observações"];
+  const q=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+  const rows=sorted().map(i=>[i.num,i.nome,i.area,i.oque,i.prob,i.como,i.res,i.resp,i.prazo,i.prio,i.stat,i.obs].map(q).join(";"));
+  const data="\ufeff"+[H.map(q).join(";"),...rows].join("\r\n");
+  try{const d=await claude.use("downloads");if(d){await d.save({filename:"relatorio-ideias-2027.csv",data});return}}catch(e){return}
+};
+
+lsLoad();render();
+(async()=>{
+  try{
+    db=await claude.use("db");
+    if(db){
+      $("mode").textContent="Dados compartilhados: todos que têm acesso à página veem e atualizam o mesmo portfólio.";
+      db.collection("ideas").onSnapshot(s=>{ideas=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{});
+    }else{$("mode").textContent="Modo local: as ideias ficam salvas apenas neste navegador."}
+  }catch(e){db=null;$("mode").textContent="Modo local: as ideias ficam salvas apenas neste navegador."}
+})();
+</script>
+</body>
+</html>
