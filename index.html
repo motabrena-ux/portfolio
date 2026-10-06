@@ -30,7 +30,7 @@ h2{font-size:16px;margin:0 0 12px;color:var(--navy)}
 .track{background:var(--soft);border-radius:6px;height:14px;overflow:hidden}.fill{background:var(--bar);height:100%;border-radius:6px}
 .tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
 input,select,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%}
-.tools input,.tools select{width:auto;flex:1;min-width:130px}
+.tools input,.tools select{width:auto;flex:1;min-width:130px}.tools .btn{flex:0 0 auto}
 .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
 table{border-collapse:collapse;width:100%;min-width:860px}
 th{background:var(--navy);color:#fff;text-align:left;padding:10px;font-size:13px}
@@ -70,7 +70,7 @@ label{font-size:13px;color:var(--mut);display:block;margin-bottom:3px}textarea{m
 <div class="hero"><div class="hero-in">
  <div class="top">
   <div><p class="eyebrow">Diretoria de Orçamento e Finanças</p><h1>Portfólio de Ideias 2027</h1><p class="sub">Melhorias, sugestões, projetos e soluções em um só lugar.</p></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="hb" id="csv">Baixar relatório (CSV)</button><button class="hb solid" id="new">+ Nova ideia</button></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="hb" id="imp" type="button">Importar Excel</button><input id="file" type="file" accept=".xlsx,.xls" hidden><button class="hb" id="csv">Baixar relatório (Excel)</button><button class="hb solid" id="new">+ Nova ideia</button></div>
  </div>
  <div class="tabs"><button id="t1" class="on">Dashboard</button><button id="t2">Banco de Ideias</button></div>
 </div></div>
@@ -87,7 +87,7 @@ label{font-size:13px;color:var(--mut);display:block;margin-bottom:3px}textarea{m
   <select id="fa"></select><select id="fp"></select><select id="fs"></select>
  </div>
  <div class="scroll"><table><thead><tr><th>Nº</th><th>Ideia</th><th>Área</th><th>Objetivo / Problema</th><th>Prioridade</th><th>Status</th><th>Observações</th></tr></thead><tbody id="tb"></tbody></table></div>
- <p class="note" id="mode"></p>
+ <p class="note" id="mode"></p><p class="note" id="msg" style="color:var(--navy)"></p>
 </section>
 </div>
 
@@ -109,6 +109,7 @@ label{font-size:13px;color:var(--mut);display:block;margin-bottom:3px}textarea{m
  <div class="act"><button class="btn danger" id="del" type="button">Excluir</button><button class="btn" id="cancel" type="button">Cancelar</button><button class="btn pri" id="save" type="button">Salvar</button></div>
 </form></dialog>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 const AREAS=["Orçamento","Finanças","Processos","Sistemas/Tecnologia","Controle","Organização","Capacitação","Outras"];
 const PRIO=["Alta","Média","Baixa"];
@@ -177,12 +178,51 @@ $("tb").onclick=e=>{const tr=e.target.closest("tr[data-id]");if(tr)openFicha(ide
 function tab(n){$("v1").hidden=n!==1;$("v2").hidden=n!==2;$("t1").classList.toggle("on",n===1);$("t2").classList.toggle("on",n===2)}
 $("t1").onclick=()=>tab(1);$("t2").onclick=()=>tab(2);
 
-$("csv").onclick=async()=>{
-  const H=["Nº","Ideia","Área","O que é","Problema","Como","Resultado esperado","Responsável","Prazo","Prioridade","Status","Observações"];
-  const q=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
-  const rows=sorted().map(i=>[i.num,i.nome,i.area,i.oque,i.prob,i.como,i.res,i.resp,i.prazo,i.prio,i.stat,i.obs].map(q).join(";"));
-  const data="\ufeff"+[H.map(q).join(";"),...rows].join("\r\n");
-  try{const d=await claude.use("downloads");if(d){await d.save({filename:"relatorio-ideias-2027.csv",data});return}}catch(e){return}
+const HEAD=["Nº","Ideia","Área","O que é","Problema / Objetivo","Como pode ser feita","Resultado esperado","Responsável","Prazo","Prioridade","Status","Observações"];
+const toRow=i=>[i.num,i.nome,i.area,i.oque,i.prob,i.como,i.res,i.resp,i.prazo,i.prio,i.stat,i.obs].map(v=>v??"");
+function sheetIdeias(){
+  const ws=XLSX.utils.aoa_to_sheet([HEAD,...sorted().map(toRow)]);
+  ws["!cols"]=[6,32,20,36,36,36,30,20,12,12,14,30].map(w=>({wch:w}));return ws;
+}
+function sheetResumo(){
+  const cnt=(k,L)=>L.map(v=>[v,ideas.filter(i=>i[k]===v).length]);
+  const aoa=[["Portfólio de Ideias 2027 — Diretoria de Orçamento e Finanças"],["Gerado em",new Date().toLocaleDateString("pt-BR")],[],
+    ["Ideias registradas",ideas.length],["Em andamento",ideas.filter(i=>i.stat==="Em andamento").length],["Concluídas",ideas.filter(i=>i.stat==="Concluída").length],
+    ["Alta prioridade em aberto",ideas.filter(i=>i.prio==="Alta"&&!["Concluída","Arquivada"].includes(i.stat)).length],[],
+    ["Por status","Qtd"],...cnt("stat",STAT),[],["Por área","Qtd"],...cnt("area",AREAS),[],["Por prioridade","Qtd"],...cnt("prio",PRIO)];
+  const ws=XLSX.utils.aoa_to_sheet(aoa);ws["!cols"]=[{wch:34},{wch:14}];return ws;
+}
+async function saveXlsx(wb,name){
+  if(typeof XLSX==="undefined"){$("msg").textContent="Não foi possível carregar o módulo de Excel. Verifique a conexão e recarregue a página.";return}
+  try{const data=XLSX.write(wb,{bookType:"xlsx",type:"array"});const d=await claude.use("downloads");if(d)await d.save({filename:name,data})}catch(e){}
+}
+$("csv").onclick=()=>{if(typeof XLSX==="undefined")return saveXlsx();const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,sheetResumo(),"Resumo");XLSX.utils.book_append_sheet(wb,sheetIdeias(),"Ideias");saveXlsx(wb,"relatorio-ideias-2027.xlsx")};
+
+const norm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+const FIELD={"ideia":"nome","nome":"nome","nome da ideia":"nome","area":"area","o que e":"oque","descricao":"oque","problema objetivo":"prob","problema":"prob","objetivo problema":"prob","objetivo":"prob","como pode ser feita":"como","como":"como","resultado esperado":"res","resultado":"res","responsavel":"resp","prazo":"prazo","prioridade":"prio","status":"stat","observacoes":"obs","observacao":"obs"};
+const pick=(v,L,d)=>L.find(x=>norm(x)===norm(v))||d;
+function dateIso(v){
+  if(v instanceof Date&&!isNaN(v))return new Date(v.getTime()-v.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+  const t=String(v||"").trim(),m=t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if(m)return `${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`;
+  return /^\d{4}-\d{2}-\d{2}$/.test(t)?t:"";
+}
+$("imp").onclick=()=>{if(typeof XLSX==="undefined"){$("msg").textContent="Não foi possível carregar o módulo de Excel. Recarregue a página.";return}$("file").click()};
+$("file").onchange=async e=>{
+  const f=e.target.files[0];e.target.value="";if(!f)return;
+  try{
+    const wb=XLSX.read(await f.arrayBuffer(),{cellDates:true});
+    const ws=wb.Sheets["Ideias"]||wb.Sheets[wb.SheetNames[0]];
+    const rows=XLSX.utils.sheet_to_json(ws,{defval:""});
+    let n=Math.max(0,...ideas.map(i=>i.num||0)),ok=0,skip=0;
+    for(const r of rows){
+      const it={};for(const k in r){const f2=FIELD[norm(k)];if(f2)it[f2]=r[k]}
+      if(!String(it.nome||"").trim()){skip++;continue}
+      const rec={id:"i"+Date.now()+"_"+ok,num:++n,nome:String(it.nome).trim(),area:pick(it.area,AREAS,"Outras"),resp:String(it.resp||""),oque:String(it.oque||""),prob:String(it.prob||""),como:String(it.como||""),res:String(it.res||""),prazo:dateIso(it.prazo),prio:pick(it.prio,PRIO,"Média"),stat:pick(it.stat,STAT,"Nova"),obs:String(it.obs||"")};
+      await persist(rec);ok++;
+    }
+    $("msg").textContent=ok?`${ok} ideia(s) importada(s)`+(skip?`; ${skip} linha(s) sem nome foram ignoradas.`:"."):"Nenhuma ideia importada. Confira se a planilha tem a coluna “Ideia”.";
+  }catch(err){$("msg").textContent="Não foi possível ler o arquivo. Use uma planilha Excel (.xlsx ou .xls)."}
 };
 
 lsLoad();render();
